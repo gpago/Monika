@@ -157,7 +157,7 @@ class Music:
 
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
-        if player.fetch('repair') == True:
+        if player.fetch('repair'):
             return await ctx.send("You can't do that right now. Try again in about 10 minutes.")
 
         if not player.is_playing:
@@ -166,7 +166,7 @@ class Music:
         await ctx.send('I skipped that for you~')
         await player.skip()
 
-    @commands.command()
+    @commands.command(aliases=['skase'])
     @checks.command()
     @commands.has_permissions(manage_messages=True)
     async def stop(self, ctx):
@@ -178,7 +178,7 @@ class Music:
 
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
-        if player.fetch('repair') == True:
+        if player.fetch('repair'):
             return await ctx.send("You can't do that right now. Try again in about 10 minutes.")
 
         if not player.is_playing:

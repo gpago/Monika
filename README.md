@@ -48,8 +48,12 @@ Here's a template for `config.json`:
   "lavapass": "lavalink password",
   "dblkey": "discordbots.org token",
   "weebkey": "weeb.sh token",
-  "danbooruuser": "danbooru username",
-  "danboorukey": "danbooru api key",
+  "boorus": {
+    "Danbooru":{
+      "user": "Danbooru username",
+      "key": "Danbooru API key"
+    }
+  },
   "pwkey": "bots.discord.pw token",
   "kbkey": "bots.disgd.pw token",
   "sentry_dsn": "sentry.io dsn",
