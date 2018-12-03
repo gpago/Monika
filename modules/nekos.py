@@ -6,6 +6,7 @@ from io import StringIO
 import json
 import asyncio
 import nekos
+from utilities import utils
 
 global checks
 checks = checks.Checks()
@@ -33,14 +34,12 @@ class Nekos:
     @commands.command()
     @checks.command()
     async def cat(self, ctx):
-        if ctx.message.guild is not None:
-            color = ctx.message.guild.me.color
-        else:
-            color = discord.Colour.blue()
+        color = utils.TextUtilities.guildColor(ctx.message.guild)
         url = nekos.cat()
         embed = discord.Embed(color=color, title="Here's your requested cat, {}~".format(ctx.message.author.name))
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Nekos.life")
+        embed.set_thumbnail(url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -51,10 +50,7 @@ class Nekos:
     @commands.command()
     @checks.command()
     async def eightball(self, ctx):
-        if ctx.message.guild is not None:
-            color = ctx.message.guild.me.color
-        else:
-            color = discord.Colour.blue()
+        color = utils.TextUtilities.guildColor(ctx.message.guild)
         ball = nekos.eightball()
         embed = discord.Embed(color=color, title="{}, {}~".format(ball.__getattr__("text"), ctx.message.author.name))
         embed.set_image(url=ball.__getattr__("image"))

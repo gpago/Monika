@@ -54,6 +54,14 @@ Here's a template for `config.json`:
       "key": "Danbooru API key"
     }
   },
+  "channels": {
+    "Main": Main channel ID for Monika statuses (DO NOT USE quotes),
+    "Main-V": "Main voice channel ID for Monika statuses",
+    "Report": "Channel ID for Monika to report errors"
+  },
+  "ids": {
+    "Creator": ID of the creator (or anyone you want) (DO NOT USE quotes)
+  },
   "pwkey": "bots.discord.pw token",
   "kbkey": "bots.disgd.pw token",
   "sentry_dsn": "sentry.io dsn",

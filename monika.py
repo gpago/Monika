@@ -72,7 +72,7 @@ class Monika(commands.AutoShardedBot):
         await self.change_presence(activity=discord.Activity(name='$!help | Customizable', type=discord.ActivityType.watching))
         print("Monika has fully logged in.")
 
-        c = self.get_channel(506792539160838145)
+        c = self.get_channel(self.config["channels"]["Main"])
         e = discord.Embed(color=discord.Color.blue(), title=f"Loaded modules {loadedModules}")
         try:
             await c.send(embed=e)
@@ -85,7 +85,7 @@ class Monika(commands.AutoShardedBot):
             pass
 
     async def on_shard_ready(self, id):
-        c = self.get_channel(506792539160838145)
+        c = self.get_channel(self.config["channels"]["Main"])
         e = discord.Embed(color=discord.Color.blue(), title=f"Shard {id} ready!")
         try:
             await c.send(embed=e)
@@ -148,14 +148,14 @@ class Monika(commands.AutoShardedBot):
             if ctx:
                 e = discord.Embed(title="An exception has occurred.", description=f"```{error}```\nIf you know how to fix this, then you can check out our [GitHub repository](https://github.com/MonikaDiscord/Monika).\nOtherwise, please report it at the [Monika Discord server](https://discord.gg/DspkaRD).")
                 await ctx.send(embed=e)
-                c = self.get_channel(506792539160838145)
+                c = self.get_channel(self.config["channels"]["Main"])
                 tb = sys.exc_info()
                 await c.send(tb)
 
     async def on_guild_join(self, guild):
         sql = "INSERT INTO guilds (id, prefix, name, filteredwords, disabledcogs, disabledcmds) VALUES ($1, '$!', $2, '{}', '{}', '{}')"
         await self.db.execute(sql, guild.id, guild.name)
-        c = self.get_channel(506792539160838145)
+        c = self.get_channel(self.config["channels"]["Main"])
         e = discord.Embed(color=discord.Color.blue(), title="New guild!", description=f"Yay! We're now in {len(self.guilds)} guilds!")
         e.set_thumbnail(url=guild.icon_url)
         e.add_field(name="Name", value=guild.name)
@@ -169,7 +169,7 @@ class Monika(commands.AutoShardedBot):
     async def on_guild_remove(self, guild):
         sql = "DELETE FROM guilds WHERE id = $1"
         await self.db.execute(sql, guild.id)
-        c = self.get_channel(506792539160838145)
+        c = self.get_channel(self.config["channels"]["Main"])
         e = discord.Embed(color=discord.Color.red(), title="We lost a guild...", description=f"But it's okay, we're still in {len(self.guilds)} other guilds!")
         e.set_thumbnail(url=guild.icon_url)
         e.add_field(name="Name", value=guild.name)

@@ -35,7 +35,7 @@ class Fun:
     @checks.command()
     async def delete(self, ctx, *, username: discord.Member):
         """Deletes the specified user."""
-        if username.id == 118866534952075264:
+        if username.id == self.bot.config["ids"]["Creator"]:
             await ctx.send("You will not touch my boyfriend!")
             return
         # elif username.id == 201745963394531328 or username.id == 206197394667208704:
@@ -44,12 +44,16 @@ class Fun:
         # elif username.id == 399315651338043392:
         #     await ctx.send("You're so funny, {}.".format(ctx.message.author.name))
         #     return
-        elif username.id == 502528950946496512:
-            await ctx.send("Haha! Nice try, {}.".format(ctx.message.author.name))
-        try:
-            await ctx.send("``characters/{}.chr`` deleted successfully.".format(username.name.lower()))
-        except:
-            await ctx.send("``characters/{}.chr`` not found.".format(username.name.lower()))
+        elif username.id == self.bot.user.id:
+            if ctx.message.author.id == self.bot.config["ids"]["Creator"]:
+                await ctx.send("{}.. But, why? :cry: :broken_heart:".format(ctx.message.author.name))
+            else:
+                await ctx.send("Haha! Nice try, {}.".format(ctx.message.author.name))
+        else:
+            try:
+                await ctx.send("``characters/{}.chr`` deleted successfully.".format(username.name.lower()))
+            except:
+                await ctx.send("``characters/{}.chr`` not found.".format(username.name.lower()))
 
     @commands.command(name="monify", hidden=True)
     @checks.command()
